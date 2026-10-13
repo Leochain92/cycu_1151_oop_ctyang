@@ -34,12 +34,20 @@ Then the sign said, "The words on the prophets are written on the subway walls
 In tenement halls"
 And whispered in the sound of silence'''
 
-def count_silence(lyrics, word='silence'):
-    count = 0
-    words = lyrics.lower().split()
-    for word in words:
-        if word == 'silence':
-            count += 1
-    return count
+def count_words(lyrics, target_words):
+    # 先把歌詞拆成單字，並忽略大小寫與標點符號
+    words = [word.lower() for word in __import__('re').findall(r"[A-Za-z]+", lyrics)]
 
-print(count_silence(lyrics))
+    # 讓 dictionary 中保留原本指定的 key 形式，並依照大小寫不敏感計數
+    target_map = {word.lower(): word for word in target_words}
+    counts = {word: 0 for word in target_words}
+
+    for word in words:
+        if word in target_map:
+            counts[target_map[word]] += 1
+
+    return counts
+
+search_words = ["silence", "People", "neon", "words", "the"]
+result = count_words(lyrics, search_words)
+print(result)

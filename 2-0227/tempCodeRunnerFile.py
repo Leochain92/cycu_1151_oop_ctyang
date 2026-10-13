@@ -1,64 +1,52 @@
-def find_word_indices(lyrics: str, target_word: str) -> list:
+import numpy as np
+
+def solve_inverse(matrix):
     """
-    分析歌詞，找出指定單字在整首歌詞中所有出現的位置（字元索引），
-    並將這些位置儲存在 list 中回傳。若未出現則回傳空 list。
-    """
-    indices = []
-    # 轉換成小寫以進行不分大小寫的搜尋
-    lower_lyrics = lyrics.lower()
-    lower_target = target_word.lower()
+    計算並回傳 square matrix 的反矩陣。
     
-    start_idx = 0
-    while True:
-        idx = lower_lyrics.find(lower_target, start_idx)
-        if idx == -1:
-            break
-        indices.append(idx)
-        # 移動起始搜尋位置，避免重複計算同一個
-        start_idx = idx + len(lower_target)
+    參數:
+        matrix: 輸入的 n x n 矩陣 (numpy.ndarray 或 list of lists)
         
-    return indices
+    回傳:
+        numpy.ndarray: 反矩陣
+    """
+    # 1. 確保矩陣為浮點數型態 (float)
+    mat = np.array(matrix, dtype=float)
+    
+    # 2. 確保矩陣為方陣 (n x n)
+    if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:
+        raise ValueError("輸入必須為 n x n 的方陣")
+        
+    # 3. 執行反矩陣計算，若為不可逆矩陣則 raise ValueError
+    try:
+        inv_matrix = np.linalg.inv(mat)
+        return inv_matrix
+    except np.linalg.LinAlgError:
+        raise ValueError("此為不可逆矩陣 (det 為 0 或主對角線無法找到 pivot)")
 
-# 1. 在此放入您的歌詞內容（此處以短範例示意）
-lyrics_content = """
-… When you're weary, feeling small,
-When tears are in your eyes, I will dry them all;
-I'm on your side. When times get rough
-And friends just can't be found,
-Like a bridge over troubled water
-I will lay me down.
-Like a bridge over troubled water
-I will lay me down.
-… When you're down and out,
-When you're on the street,
-When evening falls so hard
-I will comfort you.
-I'll take your part.
-When darkness comes
-And pain is all around,
-Like a bridge over troubled water
-I will lay me down.
-Like a bridge over troubled water
-I will lay me down.
-… Sail on silvergirl,
-Sail on by.
-Your time has come to shine.
-All your dreams are on their way.
-See how they shine.
-If you need a friend
-I'm sailing right behind.
-Like a bridge over troubled water
-I will ease your mind.
-Like a bridge over troubled water
-I will ease your mind.
-
-"""
-
-# 2. 指定您想要搜尋的單字（例如 "bridge" 或 "water"）
-target = "bridge"
-
-# 3. 執行分析函數
-result_indices = find_word_indices(lyrics_content, target)
-
-# 4. 輸出結果
-print(f"單字 '{target}' 在歌詞中的所有位置索引：{result_indices}")
+# ================= 測試與驗證區域 =================
+if __name__ == "__main__":
+    test_matrix = np.array([
+        [6, 3, 7, 4, 6, 9, 2, 6, 7, 4],
+        [3, 7, 7, 2, 5, 4, 1, 7, 5, 1],
+        [4, 0, 9, 5, 8, 0, 9, 2, 6, 3],
+        [8, 2, 4, 2, 6, 4, 8, 6, 1, 3],
+        [8, 1, 9, 8, 9, 4, 1, 3, 6, 7],
+        [2, 0, 3, 1, 7, 3, 1, 5, 5, 9],
+        [3, 5, 1, 9, 1, 9, 3, 7, 6, 8],
+        [7, 4, 1, 4, 7, 9, 8, 8, 0, 8],
+        [6, 8, 7, 0, 7, 7, 2, 0, 7, 2],
+        [2, 0, 4, 9, 6, 9, 8, 6, 8, 7]
+    ], dtype=float)
+    
+    # 執行反矩陣計算
+    inv = solve_inverse(test_matrix)
+    
+    # 檢查 A @ A^(-1) 是否接近單位矩陣 I
+    identity = np.eye(len(test_matrix))
+    is_correct = np.allclose(test_matrix @ inv, identity, atol=1e-7)
+    
+    print("反矩陣計算結果:")
+    print(inv)
+    print("反矩陣計算結果形狀:", inv.shape)
+    print("驗證 A @ A^(-1) == I :", "成功 (Pass)" if is_correct else "失敗 (Fail)")
