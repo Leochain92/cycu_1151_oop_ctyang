@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>Python 期中考規模練習題 - 完整作答與解析手冊</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+    @bottom-center {
+      content: counter(page);
+      font-size: 10pt;
+      color: #666;
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", "微軟正黑體", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    font-size: 11pt;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-container {
+    border-bottom: 3px solid #2563eb;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+  }
+
+  .main-title {
+    font-size: 24pt;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin: 0 0 8px 0;
+    letter-spacing: 0.5px;
+  }
+
+  .sub-title {
+    font-size: 13pt;
+    color: #4b5563;
+    margin: 0 0 12px 0;
+    font-weight: 500;
+  }
+
+  .info-badge-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .badge {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 9.5pt;
+    font-weight: 600;
+  }
+
+  .section-block {
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+  }
+
+  .section-title {
+    font-size: 15pt;
+    font-weight: 700;
+    color: #1e40af;
+    border-left: 5px solid #2563eb;
+    padding-left: 10px;
+    margin-top: 22px;
+    margin-bottom: 14px;
+  }
+
+  .subsection-title {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #1f2937;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .score-pill {
+    background-color: #fef3c7;
+    color: #92400e;
+    font-size: 8.5pt;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    border: 1px solid #fde68a;
+  }
+
+  .box {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 10px 0;
+  }
+
+  .box-title {
+    font-weight: bold;
+    color: #475569;
+    font-size: 10pt;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  pre {
+    background-color: #0f172a;
+    color: #f8fafc;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-family: Consolas, "Courier New", Courier, monospace;
+    font-size: 9.5pt;
+    line-height: 1.45;
+    overflow-x: auto;
+    margin: 8px 0;
+  }
+
+  code {
+    font-family: Consolas, "Courier New", Courier, monospace;
+    background-color: #f1f5f9;
+    color: #0f172a;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 9.5pt;
+  }
+
+  pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
+  .table-container {
+    margin: 12px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+    margin: 8px 0;
+  }
+
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 7px 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-weight: 700;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+
+  .callout {
+    border-left: 4px solid #3b82f6;
+    background-color: #eff6ff;
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    margin: 10px 0;
+    font-size: 10pt;
+  }
+
+  .callout strong {
+    color: #1d4ed8;
+  }
+
+  .output-box {
+    background-color: #1e293b;
+    color: #38bdf8;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-family: Consolas, monospace;
+    font-size: 9pt;
+    white-space: pre;
+    margin: 8px 0;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .checklist {
+    list-style-type: none;
+    padding-left: 5px;
+  }
+
+  .checklist li {
+    margin-bottom: 6px;
+    position: relative;
+    padding-left: 22px;
+  }
+
+  .checklist li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #16a34a;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<div class="header-container">
+  <h1 class="main-title">Python 期中考規模練習題</h1>
+  <div class="sub-title">物件導向程式設計（OOP）— 完整作答程式碼、逐步解析與執行驗證手冊</div>
+  <div class="info-badge-group">
+    <span class="badge">建議時間：90 分鐘</span>
+    <span class="badge">試卷總分：100 分</span>
+    <span class="badge">使用環境：Python 3.10+ / 內建函式庫</span>
+    <span class="badge">檔案目錄：物件導向期中</span>
+  </div>
+</div>
+
+<!-- ================= 第一題 ================= -->
+<div class="section-block">
+  <div class="section-title">第一題目：讀程式、追蹤變化（總分 20 分）</div>
+  <p style="font-size: 10pt; color: #475569; margin-top: -6px;">
+    請依 Python 的實際執行順序作答，並寫出每一步的值；不要只憑直覺猜測。
+  </p>
+
+  <!-- 1A -->
+  <div class="subsection-title">
+    1A. 數值與型別 <span class="score-pill">6 分</span>
+  </div>
+  <div class="box">
+    <div class="box-title">題目原始程式碼</div>
+    <pre><code>a = round(42.5)
+b = round(43.5)
+c = 7 / 2
+
+print(a)
+print(b)
+print(c)
+print(type(c))</code></pre>
+  </div>
+
+  <div class="callout">
+    <strong>作答內容與逐步解析：</strong>
+    <ol style="margin: 4px 0 0 16px; padding-left: 0;">
+      <li><strong>寫出 a、b、c 的值：</strong>
+        <ul>
+          <li><code>a = 42</code></li>
+          <li><code>b = 44</code></li>
+          <li><code>c = 3.5</code></li>
+        </ul>
+      </li>
+      <li><strong>寫出四行輸出的內容：</strong>
+        <div class="output-box">42
+44
+3.5
+&lt;class 'float'&gt;</div>
+      </li>
+      <li><strong>說明為什麼 a 與 b 的結果不同：</strong><br>
+        Python 的內建 <code>round()</code> 函式採用「<strong>銀行家捨入法（Round half to even，取至最接近的偶數）</strong>」規則。
+        當小數剛好位於兩個整數正中間（.5）時：
+        <ul>
+          <li><code>42.5</code> 介於 42 與 43 之間，最接近的偶數是 <strong>42</strong>。</li>
+          <li><code>43.5</code> 介於 43 與 44 之間，最接近的偶數是 <strong>44</strong>。</li>
+        </ul>
+        因為兩者剛好相鄰的偶數不同，故分別捨入為 42 與 44。
+      </li>
+    </ol>
+  </div>
+
+  <!-- 1B -->
+  <div class="subsection-title">
+    1B. 追蹤遞迴呼叫 <span class="score-pill">6 分</span>
+  </div>
+  <div class="box">
+    <div class="box-title">題目原始程式碼</div>
+    <pre><code>def gcd(a, b):
+    if b == 0:
+        return a
+    return gcd(b, a % b)</code></pre>
+  </div>
+
+  <div class="callout">
+    <strong>作答內容與逐步解析：</strong>
+    <p>1. <strong>gcd(55, 21) 每次呼叫的參數追蹤表：</strong></p>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">呼叫順序</th>
+            <th style="width: 25%;">參數 a</th>
+            <th style="width: 25%;">參數 b</th>
+            <th style="width: 25%;">計算步驟 / 備註</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>55</td><td>21</td><td>55 % 21 = 13</td></tr>
+          <tr><td>2</td><td>21</td><td>13</td><td>21 % 13 = 8</td></tr>
+          <tr><td>3</td><td>13</td><td>8</td><td>13 % 8 = 5</td></tr>
+          <tr><td>4</td><td>8</td><td>5</td><td>8 % 5 = 3</td></tr>
+          <tr><td>5</td><td>5</td><td>3</td><td>5 % 3 = 2</td></tr>
+          <tr><td>6</td><td>3</td><td>2</td><td>3 % 2 = 1</td></tr>
+          <tr><td>7</td><td>2</td><td>1</td><td>2 % 1 = 0</td></tr>
+          <tr><td>8</td><td>1</td><td>0</td><td>滿足停止條件 b == 0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>2. <strong>遞迴停止時符合的條件：</strong> <code>b == 0</code>（第 8 次呼叫時成立）。</p>
+    <p>3. <strong>最後回傳值：</strong> <code>1</code>。</p>
+  </div>
+
+  <!-- 1C -->
+  <div class="subsection-title">
+    1C. 串列別名 <span class="score-pill">4 分</span>
+  </div>
+  <div class="box">
+    <div class="box-title">題目原始程式碼</div>
+    <pre><code>left = [2, 4]
+right = left
+right.append(6)
+left[0] = 10
+print(left)
+print(right)</code></pre>
+  </div>
+
+  <div class="callout">
+    <strong>作答內容與逐步解析：</strong>
+    <ol style="margin: 4px 0 0 16px; padding-left: 0;">
+      <li><strong>寫出兩行輸出：</strong>
+        <div class="output-box">[10, 4, 6]
+[10, 4, 6]</div>
+      </li>
+      <li><strong>用一句話說明 left 與 right 的關係：</strong><br>
+        <code>left</code> 與 <code>right</code> 參照（指向）記憶體中同一個串列物件（<code>right</code> 是 <code>left</code> 的別名），因此透過任一名稱修改串列，另一個變數所見的內容也會同步改變。
+      </li>
+    </ol>
+  </div>
+
+  <!-- 1D -->
+  <div class="subsection-title">
+    1D. 字串索引與切片 <span class="score-pill">4 分</span>
+  </div>
+  <div class="box">
+    <div class="box-title">題目原始程式碼</div>
+    <pre><code>word = "Python"
+print(word[0])
+print(word[1:4])
+print(len(word))</code></pre>
+  </div>
+
+  <div class="callout">
+    <strong>作答內容與逐步解析：</strong>
+    <ol style="margin: 4px 0 0 16px; padding-left: 0;">
+      <li><strong>寫出三行輸出：</strong>
+        <div class="output-box">P
+yth
+6</div>
+      </li>
+      <li><strong>指出切片的結尾索引是否包含在結果中：</strong><br>
+        <strong>不包含</strong>。Python 的切片語法 <code>[start:stop]</code> 為「左閉右開」區間，包含起始索引，但不包含結尾索引。因此 <code>word[1:4]</code> 只會擷取索引 1, 2, 3 的字元（'y', 't', 'h'），不包含索引 4 的字元（'o'）。
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ================= 第二題 ================= -->
+<div class="section-block">
+  <div class="section-title">第二題：成績清單摘要函式（總分 30 分）</div>
+  
+  <p><strong>題目需求：</strong> 請完成函式 <code>print_score_summary(scores, passing_score)</code>。函式接收一個整數串列與及格門檻，依指定格式輸出摘要。</p>
+
+  <div class="box">
+    <div class="box-title">完整解答原始碼 (q2_score_summary.py)</div>
+    <pre><code>def print_score_summary(scores, passing_score):
+    """
+    計算並依序印出成績清單的摘要資訊。
+    
+    參數:
+        scores (list): 整數分數串列（保證至少有一個分數）
+        passing_score (int): 及格門檻分數
+    """
+    # 步驟 1 & 2: 初始化總分與及格人數
+    total_score = 0
+    passing_count = 0
+    
+    # 步驟 3 & 4: 走訪 scores 累加總分，並判斷是否達到及格門檻
+    for score in scores:
+        total_score += score
+        if score >= passing_score:
+            passing_count += 1
+            
+    # 步驟 5: 計算平均分數（直接除法，不需自行四捨五入）
+    count = len(scores)
+    average = total_score / count
+    
+    # 步驟 6: 使用 f-string 依序輸出四行摘要
+    print(f"筆數：{count}")
+    print(f"總分：{total_score}")
+    print(f"平均：{average}")
+    print(f"及格人數：{passing_count}")</code></pre>
+  </div>
+
+  <div class="callout">
+    <strong>測試資料與驗證輸出：</strong>
+    <p style="margin: 4px 0;"><strong>測試 1（題目範例）：</strong></p>
+    <pre><code>scores = [72, 90, 64, 88, 96]
+print_score_summary(scores, 70)</code></pre>
+    <div class="output-box">筆數：5
+總分：410
+平均：82.0
+及格人數：4</div>
+
+    <p style="margin: 8px 0 4px 0;"><strong>測試 2（分數等於門檻亦算及格）：</strong></p>
+    <pre><code>print_score_summary([50, 60, 70], 60)</code></pre>
+    <div class="output-box">筆數：3
+總分：180
+平均：60.0
+及格人數：2</div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">評分重點自我查檢</div>
+    <ul class="checklist">
+      <li>初始化與計算總分正確 (8 分)</li>
+      <li>逐項判斷及格（使用 <code>&gt;=</code>）並正確計數 (8 分)</li>
+      <li>筆數與平均計算正確 (6 分)</li>
+      <li>輸出標籤（筆數：/總分：/平均：/及格人數：）、順序與格式一致 (5 分)</li>
+      <li>函式能用不同測試資料重複使用 (3 分)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ================= 第三題 ================= -->
+<div class="section-block">
+  <div class="section-title">第三題：找出符合條件的長回文單字（總分 30 分）</div>
+  
+  <p><strong>題目需求：</strong> 判斷單字是否為回文（忽略大小寫，使用 <code>lower()</code>、<code>reversed()</code> 與 <code>''.join(...)</code>）。篩選長度至少為 <code>min_length</code> 且是回文的單字，維持原始順序與拼寫回傳。</p>
+
+  <div class="box">
+    <div class="box-title">完整解答原始碼 (q3_palindrome.py)</div>
+    <pre><code>def is_palindrome(word):
+    """
+    判斷單字是否為回文（忽略大小寫）。
+    
+    步驟:
+    1. 使用 lower() 建立不分大小寫的字串。
+    2. 以 reversed() 與 ''.join(...) 建立反轉字串。
+    3. 比較兩者是否相等，相同回傳 True，否則 False。
+    """
+    lower_word = word.lower()
+    reversed_word = ''.join(reversed(lower_word))
+    return lower_word == reversed_word
+
+
+def find_long_palindromes(words, min_length):
+    """
+    找出串列中長度至少為 min_length 的所有回文單字。
+    
+    步驟:
+    4. 建立空串列。
+    5. 只有在「長度至少為 min_length」且「是回文」時，加入原始單字。
+    6. 回傳結果串列（不在函式內直接印出）。
+    """
+    result = []
+    for word in words:
+        if len(word) >= min_length and is_palindrome(word):
+            result.append(word)
+    return result</code></pre>
+  </div>
+
+  <div class="callout">
+    <strong>測試資料與驗證輸出：</strong>
+    <pre><code>words = ["Noon", "level", "Python", "Radar", "civic", "data"]
+
+# 單元測試 is_palindrome
+print(is_palindrome("Noon"))    # 預期: True
+print(is_palindrome("Python"))  # 預期: False
+
+# 呼叫 find_long_palindromes(words, 4)
+print(find_long_palindromes(words, 4))
+# 輸出: ['Noon', 'level', 'Radar', 'civic']
+
+# 呼叫 find_long_palindromes(words, 5)
+print(find_long_palindromes(words, 5))
+# 輸出: ['level', 'Radar', 'civic']</code></pre>
+    <div class="output-box">True
+False
+['Noon', 'level', 'Radar', 'civic']
+['level', 'Radar', 'civic']</div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">評分重點自我查檢</div>
+    <ul class="checklist">
+      <li>正確完成大小寫正規化與 reversed() + join 反轉 (10 分)</li>
+      <li>is_palindrome 對正例與反例判斷皆正確 (6 分)</li>
+      <li>正確走訪並同時套用長度與回文條件 (8 分)</li>
+      <li>正確回傳串列，維持原本順序與拼寫（大小寫未變動）(4 分)</li>
+      <li>完成正反例與長度限制自我測試 (2 分)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ================= 第四題 ================= -->
+<div class="section-block">
+  <div class="section-title">第四題：使用遞迴計算最大公因數（總分 20 分）</div>
+  
+  <p><strong>題目需求：</strong> 以輾轉相除法原理自行設計遞迴函式 <code>gcd(a, b)</code>，求非負整數的最大公因數（不可使用 <code>math.gcd()</code>）。</p>
+
+  <div class="box">
+    <div class="box-title">完整解答原始碼 (q4_recursive_gcd.py)</div>
+    <pre><code>def gcd(a, b):
+    """
+    使用遞迴計算整數 a 與 b 的最大公因數 (GCD)。
+    
+    核心概念：
+    1. 基底條件 (Base Case): 當 b == 0 時，最大公因數即為 a，直接 return a。
+    2. 遞迴步驟 (Recursive Step): gcd(a, b) = gcd(b, a % b)。
+       每次取餘數後交換參數位置，第二個參數嚴格縮小，保證逐步停止。
+    """
+    # 步驟 1 & 2: 停止條件
+    if b == 0:
+        return a
+        
+    # 步驟 3 & 4: 遞迴縮小問題
+    return gcd(b, a % b)</code></pre>
+  </div>
+
+  <div class="callout">
+    <strong>測試資料表格與驗證：</strong>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>測試函式呼叫</th>
+            <th>預期結果</th>
+            <th>實際回傳值</th>
+            <th>測試狀態</th>
+            <th>遞迴呼叫次數</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>gcd(55, 21)</code></td>
+            <td>1</td>
+            <td>1</td>
+            <td><strong style="color: #16a34a;">PASS</strong></td>
+            <td>8 次</td>
+          </tr>
+          <tr>
+            <td><code>gcd(24, 18)</code></td>
+            <td>6</td>
+            <td>6</td>
+            <td><strong style="color: #16a34a;">PASS</strong></td>
+            <td>3 次 (24,18 -> 18,6 -> 6,0)</td>
+          </tr>
+          <tr>
+            <td><code>gcd(7, 0)</code></td>
+            <td>7</td>
+            <td>7</td>
+            <td><strong style="color: #16a34a;">PASS</strong></td>
+            <td>1 次 (直接命中停止條件)</td>
+          </tr>
+          <tr>
+            <td><code>gcd(18, 24)</code></td>
+            <td>6</td>
+            <td>6</td>
+            <td><strong style="color: #16a34a;">PASS</strong></td>
+            <td>4 次 (a &lt; b 自動對調)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">考前複習與作答檢查重點總結</div>
+    <ul class="checklist">
+      <li><strong>型別運算：</strong>注意 <code>/</code> 恆產生浮點數（float），<code>round()</code> 遇 .5 取最近之偶數。</li>
+      <li><strong>串列別名：</strong><code>b = a</code> 僅複製記憶體位址參照，修改其一會影響另一變數。</li>
+      <li><strong>字串切片：</strong>切片 <code>[start:stop]</code> 左閉右開，長度等於 <code>stop - start</code>。</li>
+      <li><strong>回傳 vs 印出：</strong>題目要求「回傳」務必使用 <code>return</code>；要求「印出」才使用 <code>print()</code>。</li>
+      <li><strong>遞迴雙要素：</strong>務必檢查「停止條件（Base Case）」以及「參數縮小朝向終止前進」。</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
