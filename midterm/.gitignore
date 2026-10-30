@@ -1,0 +1,39 @@
+# Git 忽略清單
+
+# Excel 原始資料（較大，透過 CSV 替代）
+final_result.xlsx
+final_result_smallcase.xlsx
+
+# 舊版程式（保留在本地，不上傳）
+Sobol_Analyzer.py
+run Sobol_Analyzer.py
+generate_csv.py
+
+# 說明文件（本地用）
+說明.txt
+參考資料.txt
+
+# 輸出圖片（可在本地重新生成）
+# result_small.png
+# result_full.png
+# （保留 PNG，方便 GitHub 預覽）
+
+# Python 快取
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 虛擬環境
+.venv/
+venv/
+env/
+
+# 作業系統雜項
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE 設定
+.vscode/
+.idea/
